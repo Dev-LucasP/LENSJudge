@@ -4,15 +4,13 @@ import java.io.IOException;
 
 public interface IProcessStrategy{
 
-	public Process execute(String[] args) throws IOException;
+	Process execute(String[] args) throws IOException;
 
-	public void createProcessus();
+	void createProcessus();
 	
-	public void stopProcessus() throws InterruptedException;
-	
-	public String getInput();
-	
-	public String getOutput();
+	void stopProcessus() throws InterruptedException;
 
-	public String getError();
+	String getOutput();
+
+	String getError();
 }

@@ -12,6 +12,7 @@ public class AdapterProcess implements IProcessStrategy {
 	public AdapterProcess() {
 		this.processBuilder = null;
 		this.process = null;
+		this.output = null;
 	}
 
 	@Override
@@ -41,18 +42,6 @@ public class AdapterProcess implements IProcessStrategy {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public String getInput() {
-/*		try {
-			InputStream inputStream = process.getInputStream();
-			return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}*/
-		return null;
 	}
 
 	@Override

@@ -7,10 +7,10 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestAdapterProcess {
+class TestAdapterProcess {
 
     @Test
-    public void testExecute() {
+    void testExecute() {
         AdapterProcess adapterProcess = new AdapterProcess();
         adapterProcess.createProcessus();
         try {
@@ -23,14 +23,14 @@ public class TestAdapterProcess {
         }
     }
     @Test
-    public void testCreateProcessus() {
+    void testCreateProcessus() {
         AdapterProcess adapterProcess = new AdapterProcess();
         adapterProcess.createProcessus();
         assertNotNull(adapterProcess);
     }
 
     @Test
-    public void testStopProcessus() {
+    void testStopProcessus() {
         AdapterProcess adapterProcess = new AdapterProcess();
         adapterProcess.createProcessus();
         try {
@@ -43,13 +43,14 @@ public class TestAdapterProcess {
     }
 
     @Test
-    public void testGetError() {
+    void testGetError() {
         AdapterProcess adapterProcess = new AdapterProcess();
         adapterProcess.createProcessus();
         try {
             adapterProcess.execute(new String[]{"ls", "-la", "/doesnotexist"});
             String actualError = adapterProcess.getError();
-            assertTrue(actualError.contains("ls: impossible d'accéder à '/doesnotexist': Aucun fichier ou dossier de ce nom\n"));
+            assertTrue(actualError.contains("" +
+                    "ls: impossible d'accéder à '/doesnotexist': Aucun fichier ou dossier de ce nom\n"));
         } catch (IOException e) {
             e.printStackTrace();
         }
