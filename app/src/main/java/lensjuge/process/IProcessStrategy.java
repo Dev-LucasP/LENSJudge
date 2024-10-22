@@ -12,4 +12,5 @@ public interface IProcessStrategy{
 	
 	public String getOutput();
 
+	public String getError();
 }
