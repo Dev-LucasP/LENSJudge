@@ -20,8 +20,8 @@ class ProblemTest {
 
     @Test
     void testTestCaseCreation() {
-        assertEquals("input1.in", testCase1.getInputFile());
-        assertEquals("output1.ans", testCase1.getOutputFile());
+        assertEquals("input1.in", testCase1.getInputFilePath());
+        assertEquals("output1.ans", testCase1.getOutputFilePath());
     }
 
     @Test
