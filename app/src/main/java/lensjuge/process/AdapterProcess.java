@@ -7,7 +7,8 @@ import java.nio.charset.StandardCharsets;
 public class AdapterProcess implements IProcessStrategy {
 	private ProcessBuilder processBuilder;
 	private Process process;
-
+	private String output;
+	private String error;
 	public AdapterProcess() {
 		this.processBuilder = null;
 		this.process = null;
@@ -19,7 +20,9 @@ public class AdapterProcess implements IProcessStrategy {
 			if (processBuilder == null) {
 				throw new IOException("ProcessBuilder is not initialized");
 			}
-			return processBuilder.command(args).start();
+			this.process = processBuilder.command(args).start();
+			return this.process;
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw e;
@@ -56,7 +59,8 @@ public class AdapterProcess implements IProcessStrategy {
 	public String getOutput() {
 		try {
 			InputStream inputStream = process.getInputStream();
-			return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+			this.output = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+			return this.output;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -67,7 +71,8 @@ public class AdapterProcess implements IProcessStrategy {
 	public String getError() {
 		try {
 			InputStream inputStream = process.getErrorStream();
-			return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+			this.error = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+			return this.error;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
