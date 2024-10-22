@@ -1,7 +1,9 @@
-package lensjuge.process;
+package lensjudge.process;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import lensjudge.process.AdapterProcess;
 
 import java.io.IOException;
 

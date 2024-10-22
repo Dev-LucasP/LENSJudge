@@ -1,4 +1,4 @@
-package lensjuge.process;
+package lensjudge.process;
 
 import java.time.Instant;
 
