@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -9,16 +10,16 @@ public class CCompiler {
      *
      * @param sourceFilePath the path to the C source file
      * @param executablePath the path to the output executable
+     * @throws InvalidCSourceFileException if the file is not a C source file
      * @return true if the compilation is successful, false otherwise
      */
-    public boolean compile(String sourceFilePath) {
+    public boolean compile(String sourceFilePath, String executablePath) throws InvalidCSourceFileException {
         if (!isCSourceFile(sourceFilePath)) {
-            System.err.println("Error: The file is not a C source file.");
-            return false;
+            throw new InvalidCSourceFileException("Error: The file is not a C source file.");
         }
 
         ProcessBuilder processBuilder = new ProcessBuilder(
-                "gcc", "-x", "c", "-Wall", "-O2", "-static", "-pipe", "-lm", "-o", sourceFilePath);
+                "gcc", "-x", "c", "-Wall", "-O2", "-static", "-pipe", "-lm", "-o", executablePath, sourceFilePath);
         return runProcess(processBuilder);
     }
 
@@ -55,5 +56,10 @@ public class CCompiler {
             }
         }
         return output.toString();
+    }
+
+    private boolean isCSourceFile(String filePath) {
+        File file = new File(filePath);
+        return file.isFile() && filePath.endsWith(".c");
     }
 }
