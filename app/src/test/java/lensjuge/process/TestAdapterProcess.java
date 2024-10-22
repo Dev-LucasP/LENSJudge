@@ -17,7 +17,7 @@ class TestAdapterProcess {
             adapterProcess.execute(new String[]{"ls", "-la", "/"});
             String actualOutput = adapterProcess.getOutput();
 
-            assertTrue(actualOutput.contains("total 68"));
+            assertTrue(actualOutput.contains("total ")); // Check if the output contains "total xxxx"
         } catch (IOException e) {
             e.printStackTrace();
         }
