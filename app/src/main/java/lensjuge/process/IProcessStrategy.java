@@ -1,10 +1,12 @@
 package lensjuge.process;
 
+import java.io.IOException;
+
 public interface IProcessStrategy{
-	
-	public String execute(String[] args);
-	
-	public Process createProcessus();
+
+	public Process execute(String[] args) throws IOException;
+
+	public void createProcessus();
 	
 	public void stopProcessus() throws InterruptedException;
 	
