@@ -2,11 +2,11 @@ package lensjuge.process;
 
 public interface IProcessStrategy{
 	
-	public String execute();
+	public String execute(String args);
 	
 	public Process createProcessus();
 	
-	public void stopProcessus();
+	public void stopProcessus() throws InterruptedException;
 	
 	public String getInput();
 	
