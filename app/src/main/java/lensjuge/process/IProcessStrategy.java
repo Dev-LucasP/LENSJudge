@@ -2,7 +2,7 @@ package lensjuge.process;
 
 public interface IProcessStrategy{
 	
-	public String execute(String args);
+	public String execute(String[] args);
 	
 	public Process createProcessus();
 	
