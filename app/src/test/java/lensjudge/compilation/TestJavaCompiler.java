@@ -1,33 +1,31 @@
 package lensjudge.compilation;
 
 import lensjudge.process.AdapterProcess;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import java.io.FileWriter;
 
 class TestJavaCompiler {
 
-    private AdapterProcess adapterProcess;
-
-/*    @BeforeEach
-    void setUp() {
-        adapterProcess = mock(AdapterProcess.class);
-    }*/
-
     @Test
     void compileWrongFormat() {
-        assertThrows(IllegalArgumentException.class, () -> JavaCompiler.compile("source.txt", "classPath"));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new JavaCompiler("test"));
+        assertEquals("Source file must end with .java", exception.getMessage());
     }
 
     @Test
-    void testCompile() throws IOException {
-        JavaCompiler javaCompiler = new JavaCompiler();
-        adapterProcess.createProcessus();
+    void TestJavaCompiler() throws IOException, InterruptedException {
+        File file = new File("test.java");
+        file.createNewFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write("public class test { public static void main(String[] args) { System.out.println(\"Hello World\"); } }");
+        writer.close();
+        JavaCompiler javaCompiler = new JavaCompiler("test.java");
+        assertTrue(javaCompiler.compile());
+        file.delete();
     }
-
 }
