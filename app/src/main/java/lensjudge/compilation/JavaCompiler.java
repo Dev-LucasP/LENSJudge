@@ -10,12 +10,12 @@ public class JavaCompiler extends CompilerStrategy {
     }
 
     @Override
-    protected boolean checkFileExtension() {
+    public boolean checkFileExtension() {
         return sourceFile.endsWith(".java");
     }
 
     @Override
-    protected String deduceBinaryFile(String sourceFile) {
+    public String deduceBinaryFile(String sourceFile) {
         return sourceFile.replace(".java", ".class");
     }
 
