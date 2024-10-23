@@ -15,7 +15,7 @@ public class JavaCompiler extends CompilerStrategy {
     }
 
     @Override
-    public String deduceBinaryFile(String sourceFile) {
+    protected String deduceBinaryFile(String sourceFile) {
         return sourceFile.replace(".java", ".class");
     }
 
