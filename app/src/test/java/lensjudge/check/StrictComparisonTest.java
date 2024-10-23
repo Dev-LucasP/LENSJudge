@@ -41,25 +41,142 @@ class StrictComparisonTest {
     }
 
     @Test
-    void testPythonScriptExecution() throws IOException {
-        // Créer un fichier source Python
-        String pythonScriptFile1 = createSourceFile("hello.py", 
-            "print('Hello from Python!')");
-        
-        String pythonScriptFile2 = createSourceFile("hello.py", 
-                "print('Hello fro Python!')");
-        
-        // Exécuter le script Python
+    void testPrecisionStrict() throws IOException {
+        // Créer des fichiers source Python différents
+        String pythonScriptFile1 = createSourceFile("hello1.py", "print('Hello from Python!')");
+        String pythonScriptFile2 = createSourceFile("hello2.py", "print('Hello from Python!')");
+
+        // Exécuter les scripts Python
         ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
         ExecutionResult result1 = executor1.execute();
+
+        ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
+        ExecutionResult result2 = executor2.execute();
+
+        // Afficher les résultats pour le débogage
+        System.out.println("Result 1: " + result1.getOutput());
+        System.out.println("Result 2: " + result2.getOutput());
+
+        StrictComparison comparison = new StrictComparison();
+        boolean res = comparison.compare(result1, result2);
+
+        // Vérifier les résultats
+        assertTrue(res, "The Python script outputs should not be the same.");
+    }
+    
+    @Test
+    void testPrecisionStrictFailure() throws IOException {
+        // Créer des fichiers source Python différents
+        String pythonScriptFile1 = createSourceFile("hello1.py", "print('Hello from Python')");
+        String pythonScriptFile2 = createSourceFile("hello2.py", "print('Hello fro Python!')");
+
+        // Exécuter les scripts Python
+        ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
+        ExecutionResult result1 = executor1.execute();
+
+        ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
+        ExecutionResult result2 = executor2.execute();
+
+        // Afficher les résultats pour le débogage
+        System.out.println("Result 1: " + result1.getOutput());
+        System.out.println("Result 2: " + result2.getOutput());
+
+        StrictComparison comparison = new StrictComparison();
+        boolean res = comparison.compare(result1, result2);
+
+        // Vérifier les résultats
+        assertFalse(res, "The Python script outputs should not be the same.");
+    }
+    
+    @Test
+    void testPrecisionTolerance() throws IOException {
+        // Créer un fichier source Python
+        String pythonScriptFile1 = createSourceFile("calc1.py", "print(3.14159)");
+        String pythonScriptFile2 = createSourceFile("calc2.py", "print(3.14160)");
+
+        // Exécuter les scripts Python
+        ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
+        ExecutionResult result1 = executor1.execute();
+
+        ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
+        ExecutionResult result2 = executor2.execute();
+
+        // Comparaison avec tolérance
+        ToleranceComparison comparison = new ToleranceComparison(0.0001);
+        boolean res = comparison.compare(result1, result2);
         
+        System.out.println(result1.getOutput());
+        System.out.println(result2.getOutput());
+
+        // Vérifier les résultats
+        assertTrue(res, "The Python script should output values within the tolerance.");
+    }
+    
+    @Test
+    void testPrecisionToleranceFailure() throws IOException {
+        // Créer des fichiers source Python différents
+        String pythonScriptFile1 = createSourceFile("calc1.py", "print(4.14159)");
+        String pythonScriptFile2 = createSourceFile("calc2.py", "print(3.14159)");
+
+        // Exécuter les scripts Python
+        ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
+        ExecutionResult result1 = executor1.execute();
+
         ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
         ExecutionResult result2 = executor2.execute();
         
-        StrictComparison comparison = new StrictComparison();
+        System.out.println(result1.getOutput());
+        System.out.println(result2.getOutput());
+
+        // Comparaison avec tolérance
+        ToleranceComparison comparison = new ToleranceComparison(0.0001);
         boolean res = comparison.compare(result1, result2);
-        
+
         // Vérifier les résultats
-        assertTrue(res, "The Python script is same");
+        assertFalse(res, "The Python script outputs should not be within the tolerance.");
     }
+    
+    @Test
+    void testCaseAndSpaceInsensitive() throws IOException {
+        // Créer des fichiers Python
+        String pythonScriptFile1 = createSourceFile("hello1.py", "print('  HeLLo from    Python!  ')");
+        String pythonScriptFile2 = createSourceFile("hello2.py", "print('hello   from python!')");
+
+        // Exécuter les scripts Python
+        ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
+        ExecutionResult result1 = executor1.execute();
+
+        ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
+        ExecutionResult result2 = executor2.execute();
+
+        // Comparaison insensible à la casse et aux espaces
+        CaseAndSpaceComparison comparison = new CaseAndSpaceComparison();
+        boolean res = comparison.compare(result1, result2);
+
+        // Vérifier les résultats
+        assertTrue(res, "The Python scripts should be considered the same (case and space insensitive).");
+    }
+    
+    @Test
+    void testCaseAndSpaceInsensitiveFailure() throws IOException {
+        // Créer des fichiers Python
+        String pythonScriptFile1 = createSourceFile("hello1.py", "print('  HeLao from    Python!  ')");
+        String pythonScriptFile2 = createSourceFile("hello2.py", "print('hello   from python!')");
+
+        // Exécuter les scripts Python
+        ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
+        ExecutionResult result1 = executor1.execute();
+
+        ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
+        ExecutionResult result2 = executor2.execute();
+
+        // Comparaison insensible à la casse et aux espaces
+        CaseAndSpaceComparison comparison = new CaseAndSpaceComparison();
+        boolean res = comparison.compare(result1, result2);
+
+        // Vérifier les résultats
+        assertFalse(res, "The Python scripts should be considered the same (case and space insensitive).");
+    }
+
+
 }
