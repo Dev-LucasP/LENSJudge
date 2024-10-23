@@ -1,3 +1,5 @@
+package lensjudge.problem;
+
 /**
  * Represents a test case with an input file and an output file.
  */
