@@ -4,15 +4,29 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * The ProgramExecutor class is responsible for executing a given command
+ * and capturing its output and error streams.
+ */
 public class ProgramExecutor {
 
     private String command;
 
+    /**
+     * Constructs a new ProgramExecutor with the specified command.
+     *
+     * @param command the command to be executed.
+     */
     public ProgramExecutor(String command) {
         this.command = command;
     }
 
-    // Méthode pour exécuter un programme ou script
+    /**
+     * Executes the specified command and captures its output and error streams.
+     *
+     * @return an ExecutionResult object containing the exit code, standard output, and error output.
+     * @throws IOException if an I/O error occurs during command execution.
+     */
     public ExecutionResult execute() throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
 
