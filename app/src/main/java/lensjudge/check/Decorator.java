@@ -1,4 +1,4 @@
-package lensjudge.compilation;
+package lensjudge.check;
 
 import java.io.BufferedReader;
 import java.io.IOException;
