@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StrictComparisonTest {
+class ToleranceTest {
     private String tempDir;
 
     @BeforeEach
@@ -49,9 +49,6 @@ class StrictComparisonTest {
         // Comparaison avec tolérance
         PrecisionTolerance comparison = new PrecisionTolerance(0.0001);
         boolean res = comparison.compare(result1, result2);
-        
-        System.out.println(result1.getOutput());
-        System.out.println(result2.getOutput());
 
         // Vérifier les résultats
         assertTrue(res, "The Python script should output values within the tolerance.");
@@ -69,9 +66,6 @@ class StrictComparisonTest {
 
         ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
         ExecutionResult result2 = executor2.execute();
-        
-        System.out.println(result1.getOutput());
-        System.out.println(result2.getOutput());
 
         // Comparaison avec tolérance
         PrecisionTolerance comparison = new PrecisionTolerance(0.0001);

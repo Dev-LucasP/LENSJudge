@@ -14,7 +14,7 @@ public class PythonCompiler extends CompilerStrategy {
     }
 
     @Override
-    protected String deduceBinaryFile(String sourceFile) {
+    public String deduceBinaryFile(String sourceFile) {
         return sourceFile;  // Python does not compile, it returns the source file itself
     }
 
