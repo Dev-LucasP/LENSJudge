@@ -1,27 +1,24 @@
 package lensjudge.check;
 
+import lensjudge.execution.ExecutionResult;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class OrderCheck {
-    private ArrayList<String> result;
-    private ArrayList<String> input;
+public class OrderCheck implements OutputComparator{
 
-    public OrderCheck(ArrayList<String> result, ArrayList<String> input) {
-        this.result = result;
-        this.input = input;
-    }
+    @Override
+    public boolean compare(ExecutionResult programOutput, ExecutionResult expectedOutput) throws IOException {
+        ArrayList<String> programOutputLines = new ArrayList<>(List.of(programOutput.getOutput().split(" ")));
+        ArrayList<String> expectedOutputLines = new ArrayList<>(List.of(expectedOutput.getOutput().split(" ")));
 
-    public void input() {
-        // TODO : Implement this method
-    }
-
-    public boolean check() {
-        if (result.size() != input.size()) {
+        if (programOutputLines.size() != expectedOutputLines.size()) {
             return false;
         }
 
-        for (String item : input) {
-            if (!result.contains(item)) {
+        for (String line : expectedOutputLines) {
+            if (!programOutputLines.contains(line)) {
                 return false;
             }
         }

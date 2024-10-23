@@ -1,72 +1,75 @@
 package lensjudge.check;
 
+import lensjudge.execution.ExecutionResult;
+import lensjudge.execution.ProgramExecutor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderCheckTest {
+    private String tempDir;
 
-    @Test
-    void checkShouldReturnTrueWhenResultAndInputAreIdentical() {
-        ArrayList<String> result = new ArrayList<>();
-        result.add("item1");
-        result.add("item2");
+    @BeforeEach
+    void setUp() {
+        // Create a temporary directory for test files
+        tempDir = System.getProperty("java.io.tmpdir") + "/execution_tests/";
+        new File(tempDir).mkdirs();
+    }
 
-        ArrayList<String> input = new ArrayList<>();
-        input.add("item1");
-        input.add("item2");
-
-        OrderCheck orderCheck = new OrderCheck(result, input);
-        assertTrue(orderCheck.check());
+    private String createSourceFile(String filename, String content) throws IOException {
+        String path = tempDir + filename;
+        try (FileWriter writer = new FileWriter(path)) {
+            writer.write(content);
+        }
+        return path;
     }
 
     @Test
-    void checkShouldReturnFalseWhenResultAndInputSizesDiffer() {
-        ArrayList<String> result = new ArrayList<>();
-        result.add("item1");
+    void testWrongPythonScriptExecution() throws IOException {
+        String pythonScriptFile1 = createSourceFile("hello.py",
+                "print('1 2 3')");
 
-        ArrayList<String> input = new ArrayList<>();
-        input.add("item1");
-        input.add("item2");
+        String pythonScriptFile2 = createSourceFile("hello2.py",
+                "print('4 3 2 1 5')");
 
-        OrderCheck orderCheck = new OrderCheck(result, input);
-        assertFalse(orderCheck.check());
+        // Exécuter le script Python
+        ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
+        ExecutionResult result1 = executor1.execute();
+
+        ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
+        ExecutionResult result2 = executor2.execute();
+
+        OrderCheck comparison = new OrderCheck();
+        boolean res = comparison.compare(result1, result2);
+
+        // Verify the results
+        assertFalse(res, "The Python script is same");
     }
 
     @Test
-    void checkShouldReturnFalseWhenResultDoesNotContainAllInputItems() {
-        ArrayList<String> result = new ArrayList<>();
-        result.add("item1");
-        result.add("item3");
+    void testRightPythonScriptExecution() throws IOException {
+        String pythonScriptFile1 = createSourceFile("hello.py",
+                "print('1 2 3 4')");
 
-        ArrayList<String> input = new ArrayList<>();
-        input.add("item1");
-        input.add("item2");
+        String pythonScriptFile2 = createSourceFile("hello2.py",
+                "print('4 3 2 1')");
 
-        OrderCheck orderCheck = new OrderCheck(result, input);
-        assertFalse(orderCheck.check());
-    }
+        // Exécuter le script Python
+        ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
+        ExecutionResult result1 = executor1.execute();
 
-    @Test
-    void checkShouldReturnTrueWhenResultContainsAllInputItemsInDifferentOrder() {
-        ArrayList<String> result = new ArrayList<>();
-        result.add("item2");
-        result.add("item1");
+        ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
+        ExecutionResult result2 = executor2.execute();
 
-        ArrayList<String> input = new ArrayList<>();
-        input.add("item1");
-        input.add("item2");
+        OrderCheck comparison = new OrderCheck();
+        boolean res = comparison.compare(result1, result2);
 
-        OrderCheck orderCheck = new OrderCheck(result, input);
-        assertTrue(orderCheck.check());
-    }
-
-    @Test
-    void checkShouldReturnTrueWhenBothResultAndInputAreEmpty() {
-        ArrayList<String> result = new ArrayList<>();
-        ArrayList<String> input = new ArrayList<>();
-
-        OrderCheck orderCheck = new OrderCheck(result, input);
-        assertTrue(orderCheck.check());
+        // Verify the results
+        assertFalse(res, "The Python script is same");
     }
 }
