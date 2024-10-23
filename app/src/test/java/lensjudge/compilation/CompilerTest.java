@@ -26,6 +26,31 @@ class CompilerTest {
         writer.close();
         return path;
     }
+    
+    @Test
+    void testCCompilerSuccess() throws IOException, InterruptedException {
+        String sourcePath = createSourceFile("test.c", "#include <stdio.h>\nint main() { printf(\"Hello, C!\"); return 0; }");
+        CCompiler compiler = new CCompiler(sourcePath);
+
+        assertTrue(compiler.compile(), "C program should compile successfully.");
+        assertTrue(new File(tempDir + "test.out").exists(), "Binary file should be created.");
+    }
+
+    @Test
+    void testCCompilerFailure() throws IOException, InterruptedException {
+        String sourcePath = createSourceFile("test.c", "#include <stdio.h>\nint main() { syntax_error! return 0; }");
+        CCompiler compiler = new CCompiler(sourcePath);
+
+        assertFalse(compiler.compile(), "C program should fail to compile due to syntax error.");
+    }
+
+    @Test
+    void testCCompilerWrongExtension() {
+        CCompiler compiler = new CCompiler("test.txt");
+
+        assertThrows(IllegalArgumentException.class, compiler::compile, "Should throw exception for wrong file extension.");
+    }
+
 
     @Test
     void testCppCompilerSuccess() throws IOException, InterruptedException {
