@@ -19,7 +19,7 @@ public class CCompiler {
         }
 
         ProcessBuilder processBuilder = new ProcessBuilder(
-                "gcc", "-x", "c", "-Wall", "-O2", "-static", "-pipe", "-lm", "-o", executablePath, sourceFilePath);
+                "gcc", sourceFilePath, "-o", executablePath);
         return runProcess(processBuilder);
     }
 
