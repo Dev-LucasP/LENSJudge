@@ -2,7 +2,7 @@ package lensjudge.compilation;
 
 import java.io.IOException;
 
-class PythonCompiler extends CompilerStrategy {
+public class PythonCompiler extends CompilerStrategy {
 
     public PythonCompiler(String sourceFile) {
         super(sourceFile);

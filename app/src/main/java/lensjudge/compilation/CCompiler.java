@@ -2,19 +2,19 @@ package lensjudge.compilation;
 
 import java.io.IOException;
 
-class CCompiler extends CompilerStrategy {
+public class CCompiler extends CompilerStrategy {
 
     public CCompiler(String sourceFile) {
         super(sourceFile);
     }
 
     @Override
-    protected boolean checkFileExtension() {
+    public boolean checkFileExtension() {
         return sourceFile.endsWith(".c");
     }
 
     @Override
-    protected String deduceBinaryFile(String sourceFile) {
+    public String deduceBinaryFile(String sourceFile) {
         return sourceFile.replace(".c", ".out");
     }
 
