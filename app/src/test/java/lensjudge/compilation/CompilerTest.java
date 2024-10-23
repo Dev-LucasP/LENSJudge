@@ -85,4 +85,21 @@ class CompilerTest {
 
         assertFalse(compiler.compile(), "Python script should contain syntax errors.");
     }
+
+    @Test
+    void testJavaCompilerSuccess() throws IOException, InterruptedException {
+        String sourcePath = createSourceFile("test.java", "public class test { public static void main(String[] args) { System.out.println(\"Hello World\"); } }");
+        JavaCompiler compiler = new JavaCompiler(sourcePath);
+
+        assertTrue(compiler.compile(), "Java program should compile successfully.");
+        assertTrue(new File(sourcePath.replace(".java", ".class")).exists(), "Class file should be created.");
+    }
+
+    @Test
+    void testJavaCompilerFailure() throws IOException, InterruptedException {
+        String sourcePath = createSourceFile("test.java", "public class test { public static void main(String[] args) { System.out.println(\"Hello World\") } }");
+        JavaCompiler compiler = new JavaCompiler(sourcePath);
+
+        assertFalse(compiler.compile(), "Java program should fail to compile due to syntax error.");
+    }
 }
