@@ -13,7 +13,7 @@ class CompilerTest {
 
     @BeforeEach
     void setUp() {
-        // Creates a temporary directory for test files
+    	// Creates a temporary directory for test files
         tempDir = System.getProperty("java.io.tmpdir") + "/compile_tests/";
         new File(tempDir).mkdirs();
     }
@@ -27,7 +27,23 @@ class CompilerTest {
         return path;
     }
 
-    // Test for valid Python syntax
+    @Test
+    void testCppCompilerSuccess() throws IOException, InterruptedException {
+        String sourcePath = createSourceFile("test.cpp", "#include <iostream>\nint main() { std::cout << \"Hello, C++!\"; return 0; }");
+        CppCompiler compiler = new CppCompiler(sourcePath);
+
+        assertTrue(compiler.compile(), "C++ program should compile successfully.");
+        assertTrue(new File(sourcePath.replace(".cpp", ".out")).exists(), "Binary file should be created.");
+    }
+
+    @Test
+	void testCppCompilerFailure() throws IOException, InterruptedException {
+        String sourcePath = createSourceFile("test.cpp", "#include <iostream>\nint main() { std::cout << \"Hello, C++!\"; return 0 }");
+        CppCompiler compiler = new CppCompiler(sourcePath);
+
+        assertFalse(compiler.compile(), "C++ program should compile successfully.");
+	}
+    
     @Test
     void testPythonCompilerSuccess() throws IOException, InterruptedException {
         String sourcePath = createSourceFile("test.py", "print('Hello, Python!')");
