@@ -1,6 +1,7 @@
 package lensjudge.main;
 
 import lensjudge.check.OutputComparator;
+import lensjudge.check.StrictComparison;
 import lensjudge.compilation.*;
 import lensjudge.execution.ExecutionResult;
 import lensjudge.execution.ProgramExecutor;
@@ -45,7 +46,7 @@ public class Runner {
         boolean comparisonResult = comparator.compare(programResult, expectedResult);
 
         if (!comparisonResult) {
-            return "Wrong Answer";
+            return "INCORRECT";
         }
 
         return "CORRECT";
@@ -55,7 +56,7 @@ public class Runner {
     public static class Builder {
         private CompilerStrategy compiler;
         private ProgramExecutor executor;
-        private OutputComparator comparator;
+        private StrictComparison comparator;
         private String sourceFile;
         private String inputFile;
         private String expectedOutputFile;
@@ -70,7 +71,7 @@ public class Runner {
             return this;
         }
 
-        public Builder withComparator(OutputComparator comparator) {
+        public Builder withComparator(StrictComparison comparator) {
             this.comparator = comparator;
             return this;
         }
