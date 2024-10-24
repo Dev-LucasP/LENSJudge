@@ -19,8 +19,7 @@ public class Runner {
     private String inputFile;
     private String expectedOutputFile;
 
-    // Constructor privé pour utiliser avec un Builder
-    private Runner(Builder builder) {
+    public Runner(RunnerBuilder builder) {
         this.compiler = builder.compiler;
         this.executor = builder.executor;
         this.comparator = builder.comparator;
@@ -30,18 +29,15 @@ public class Runner {
     }
 
     public String run() throws IOException, InterruptedException {
-        // Étape 1 : Compilation
         if ((sourceFile.endsWith(".c") && sourceFile.endsWith(".cc")) && !compiler.compile()) {
             return "Compilation Error";
         }
 
-        // Étape 2 : Exécution du programme
         ExecutionResult programResult = executor.executeWithInput(inputFile);
         if (programResult.getExitCode() != 0) {
             return "Runtime Error";
         }
 
-        // Étape 3 : Comparaison de la sortie
         ExecutionResult expectedResult = new ExecutionResult(0, Files.readString(Paths.get(expectedOutputFile)), "");
         boolean comparisonResult = comparator.compare(programResult, expectedResult);
 
@@ -50,50 +46,6 @@ public class Runner {
         }
 
         return "\u001B[32mCORRECT\u001B[0m";
-    }
-
-    // Builder pour construire un Runner
-    public static class Builder {
-        private CompilerStrategy compiler;
-        private ProgramExecutor executor;
-        private StrictComparison comparator;
-        private String sourceFile;
-        private String inputFile;
-        private String expectedOutputFile;
-
-        public Builder withCompiler(CompilerStrategy compiler) {
-            this.compiler = compiler;
-            return this;
-        }
-
-        public Builder withExecutor(ProgramExecutor executor) {
-            this.executor = executor;
-            return this;
-        }
-
-        public Builder withComparator(StrictComparison comparator) {
-            this.comparator = comparator;
-            return this;
-        }
-
-        public Builder withSourceFile(String sourceFile) {
-            this.sourceFile = new File(sourceFile).getAbsolutePath(); // Chemin absolu
-            return this;
-        }
-
-        public Builder withInputFile(String inputFile) {
-            this.inputFile = new File(inputFile).getAbsolutePath(); // Chemin absolu
-            return this;
-        }
-
-        public Builder withExpectedOutputFile(String expectedOutputFile) {
-            this.expectedOutputFile = new File(expectedOutputFile).getAbsolutePath(); // Chemin absolu
-            return this;
-        }
-
-        public Runner build() {
-            return new Runner(this);
-        }
     }
 
 }
