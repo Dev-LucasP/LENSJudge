@@ -6,7 +6,7 @@ import java.io.IOException;
  * Abstract class to define the compilation strategy.
  * This class provides a template for specific compiler strategies.
  */
-abstract class CompilerStrategy {
+public abstract class CompilerStrategy {
     protected String sourceFile;
     protected String binaryFile;
 
