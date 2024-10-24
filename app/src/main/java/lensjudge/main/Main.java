@@ -53,14 +53,14 @@ public class Main {
                     String result = runner.run();
 
                     // Afficher le résultat et interrompre si une erreur est détectée
-                    if (!result.equals("CORRECT")) {
+                    if (!result.equals("\u001B[32mCORRECT\u001B[0m")) {
                         System.out.println(result); // Afficher les différences si applicable
                         return;
                     }
                 }
 
                 // Si tous les tests sont corrects
-                System.out.println("CORRECT");
+                System.out.println("\u001B[32mCORRECT\u001B[0m");
 
             } catch (IOException | InterruptedException e) {
                 System.out.println("An error occurred: " + e.getMessage());

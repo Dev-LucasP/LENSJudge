@@ -46,10 +46,10 @@ public class Runner {
         boolean comparisonResult = comparator.compare(programResult, expectedResult);
 
         if (!comparisonResult) {
-            return "INCORRECT";
+            return "\u001B[31mWRONG ANSWER\u001B[0m";
         }
 
-        return "CORRECT";
+        return "\u001B[32mCORRECT\u001B[0m";
     }
 
     // Builder pour construire un Runner
