@@ -1,30 +1,21 @@
-/*
 package lensjudge.problem;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestCaseTest {
 	
-    private TestCase testCase;
 
-    @BeforeEach
-    void setUp() {
-        testCase = new TestCase("input.in", "output.ans");
-    }
+	@Test
+	void getInputFileReturnsCorrectValue() {
+	    TestCase testCase = new TestCase("input.in", "output.ans");
+	    assertEquals("input.in", testCase.getInputFile());
+	}
 	
-    @Test
-    void testGettersAndSetters() {
-        assertEquals("input.in", testCase.getInputFilePath());
-        assertEquals("output.ans", testCase.getOutputFilePath());
-
-        testCase.setInputFilePath("newInput.in");
-        testCase.setOutputFilePath("newOutput.ans");
-
-        assertEquals("newInput.in", testCase.getInputFilePath());
-        assertEquals("newOutput.ans", testCase.getOutputFilePath());
-    }
-    
-}*/
+	@Test
+	void getExpectedOutputFileReturnsCorrectValue() {
+	    TestCase testCase = new TestCase("input.in", "output.ans");
+	    assertEquals("output.ans", testCase.getExpectedOutputFile());
+	}  
+}

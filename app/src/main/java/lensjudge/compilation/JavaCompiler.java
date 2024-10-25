@@ -35,7 +35,7 @@ public class JavaCompiler extends CompilerStrategy {
      * @return the deduced binary file name with a .class extension.
      */
     @Override
-    protected String deduceBinaryFile(String sourceFile) {
+    public String deduceBinaryFile(String sourceFile) {
         return sourceFile.replace(".java", ".class");
     }
 
