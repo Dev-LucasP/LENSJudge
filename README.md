@@ -83,10 +83,10 @@ In short, the use of AI has been invaluable in automating certain tasks, improvi
 
 # 📚 Libraries usage justification
 
-JUnit 5 (Jupiter): Used to write and execute unit tests in Java.
+- JUnit 5 (Jupiter): Used to write and execute unit tests in Java.
 
-JUnit assertions: provide methods for verifying test results. Assertions are used to validate the conditions expected in tests, guaranteeing that the code works as expected.
+- JUnit assertions: provide methods for verifying test results. Assertions are used to validate the conditions expected in tests, guaranteeing that the code works as expected.
 
-Java IO: Used for file manipulation (creation, writing, etc.). The Java IO library is essential for input/output operations, such as reading and writing files, which is crucial for tests involving scripts or data files.
+- Java IO: Used for file manipulation (creation, writing, etc.). The Java IO library is essential for input/output operations, such as reading and writing files, which is crucial for tests involving scripts or data files.
 
-System Property: Used to obtain the system's temporary directory. This allows temporary files to be created in an appropriate location, ensuring that tests do not affect the main file system.
+- System Property: Used to obtain the system's temporary directory. This allows temporary files to be created in an appropriate location, ensuring that tests do not affect the main file system.
