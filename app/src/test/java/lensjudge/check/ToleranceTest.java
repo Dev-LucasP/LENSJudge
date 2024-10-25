@@ -16,13 +16,11 @@ class ToleranceTest {
     private String tempDir;
 
     @BeforeEach
-    void setUp() throws IOException {
-        // Create a temporary directory for test files
+    void setUp() {
         tempDir = System.getProperty("java.io.tmpdir") + "/execution_tests/";
         new File(tempDir).mkdirs();
     }
 
-    // Utility method to create a source file
     private String createSourceFile(String filename, String content) throws IOException {
         String path = tempDir + filename;
         try (FileWriter writer = new FileWriter(path)) {
@@ -35,43 +33,35 @@ class ToleranceTest {
   
     @Test
     void testPrecisionTolerance() throws IOException, InterruptedException {
-        // Créer un fichier source Python
         String pythonScriptFile1 = createSourceFile("calc1.py", "print(3.14159)");
         String pythonScriptFile2 = createSourceFile("calc2.py", "print(3.14160)");
 
-        // Exécuter les scripts Python
         ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
         ExecutionResult result1 = executor1.execute();
 
         ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
         ExecutionResult result2 = executor2.execute();
 
-        // Comparaison avec tolérance
         PrecisionTolerance comparison = new PrecisionTolerance(0.0001);
         boolean res = comparison.compare(result1, result2);
 
-        // Vérifier les résultats
         assertTrue(res, "The Python script should output values within the tolerance.");
     }
     
     @Test
     void testPrecisionToleranceFailure() throws IOException, InterruptedException {
-        // Créer des fichiers source Python différents
         String pythonScriptFile1 = createSourceFile("calc1.py", "print(4.14159)");
         String pythonScriptFile2 = createSourceFile("calc2.py", "print(3.14159)");
 
-        // Exécuter les scripts Python
         ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
         ExecutionResult result1 = executor1.execute();
 
         ProgramExecutor executor2 = new ProgramExecutor("python3 " + pythonScriptFile2);
         ExecutionResult result2 = executor2.execute();
 
-        // Comparaison avec tolérance
         PrecisionTolerance comparison = new PrecisionTolerance(0.0001);
         boolean res = comparison.compare(result1, result2);
 
-        // Vérifier les résultats
         assertFalse(res, "The Python script outputs should not be within the tolerance.");
     }
     

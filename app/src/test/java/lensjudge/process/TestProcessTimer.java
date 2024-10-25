@@ -23,12 +23,12 @@ class TestProcessTimer {
     }
 
     @Test
-    void testTimeOut() throws InterruptedException {
+    void testTimeOut() {
         assertTrue(processTimer.isTimedOut());
     }
 
     @Test
-    void testFalseTimeOut() throws IOException, InterruptedException {
+    void testFalseTimeOut() throws IOException {
         AdapterProcess adapterProcess = new AdapterProcess();
         adapterProcess.createProcessus();
         adapterProcess.execute(new String[] {"echo", "hello"}); // Simulate a short-running process

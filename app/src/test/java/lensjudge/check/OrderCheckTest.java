@@ -16,7 +16,6 @@ class OrderCheckTest {
 
     @BeforeEach
     void setUp() {
-        // Create a temporary directory for test files
         tempDir = System.getProperty("java.io.tmpdir") + "/execution_tests/";
         new File(tempDir).mkdirs();
     }
@@ -37,7 +36,6 @@ class OrderCheckTest {
         String pythonScriptFile2 = createSourceFile("hello2.py",
                 "print('4 3 2 1 5')");
 
-        // Exécuter le script Python
         ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
         ExecutionResult result1 = executor1.execute();
 
@@ -47,7 +45,6 @@ class OrderCheckTest {
         OrderCheck comparison = new OrderCheck();
         boolean res = comparison.compare(result1, result2);
 
-        // Verify the results
         assertFalse(res, "The Python script is same");
     }
 
@@ -59,7 +56,6 @@ class OrderCheckTest {
         String pythonScriptFile2 = createSourceFile("hello2.py",
                 "print('4 3 2 1')");
 
-        // Exécuter le script Python
         ProgramExecutor executor1 = new ProgramExecutor("python3 " + pythonScriptFile1);
         ExecutionResult result1 = executor1.execute();
 
@@ -69,7 +65,6 @@ class OrderCheckTest {
         OrderCheck comparison = new OrderCheck();
         boolean res = comparison.compare(result1, result2);
 
-        // Verify the results
         assertFalse(res, "The Python script is same");
     }
 }
