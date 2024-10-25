@@ -40,4 +40,4 @@ $ lensjudge main.cc test-dir
 - The installation script will install the `lensjudge` command in `~/bin/` since the IUT computers does not have sudo right to copy a file into `/usr/local/bin`.
 
 # 📊 Diagrams of the project
-![plantuml](plantuml/lensjudge.png)
+![](plantuml/lensjudge.png)
