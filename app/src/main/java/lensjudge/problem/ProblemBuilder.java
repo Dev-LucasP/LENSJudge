@@ -1,46 +1,35 @@
 package lensjudge.problem;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-class ProblemBuilder {
-    private List<TestCase> testCases;
-    private int timeLimit;
-    private int memoryLimit;
-    private String validator;
+public class ProblemBuilder {
 
-    public ProblemBuilder() {
-        this.testCases = new ArrayList<>();
-        this.timeLimit = 0;
-        this.memoryLimit = 0;
-        this.validator = "strict";
-    }
-
-    public ProblemBuilder withTestCase(TestCase testCase) {
-        this.testCases.add(testCase);
-        return this;
-    }
-
-    public ProblemBuilder withTimeLimit(int timeLimit) {
-        this.timeLimit = timeLimit;
-        return this;
-    }
-
-    public ProblemBuilder withMemoryLimit(int memoryLimit) {
-        this.memoryLimit = memoryLimit;
-        return this;
-    }
-
-    public ProblemBuilder withValidator(String validator) {
-        this.validator = validator;
-        return this;
-    }
-
-    public Problem build() {
-        Problem problem = new Problem(timeLimit, memoryLimit, validator);
-        for (TestCase testCase : testCases) {
-            problem.addTestCase(testCase);
+    // Méthode pour construire un Problem à partir d'un répertoire contenant des fichiers de test
+    public static Problem build(String directoryPath) {
+        File dir = new File(directoryPath);
+        if (!dir.isDirectory()) {
+            throw new IllegalArgumentException("Provided path is not a directory.");
         }
-        return problem;
+
+        List<TestCase> testCases = new ArrayList<>();
+
+        // Parcourir tous les fichiers dans le répertoire
+        File[] testFiles = dir.listFiles((d, name) -> name.endsWith(".in"));
+        if (testFiles != null) {
+            for (File testFile : testFiles) {
+                String baseName = testFile.getName().replace(".in", "");
+                String inputFilePath = testFile.getAbsolutePath();
+                String expectedOutputFilePath = new File(dir, baseName + ".ans").getAbsolutePath();
+
+                // Créer un TestCase pour chaque couple .in et .ans
+                TestCase testCase = new TestCase(inputFilePath, expectedOutputFilePath);
+                testCases.add(testCase);
+            }
+        }
+
+        // Retourner le problème contenant tous les cas de test
+        return new Problem(testCases);
     }
 }
