@@ -42,3 +42,33 @@ $ lensjudge main.cc test-dir
 # 📊 Diagrams of the project
 ![plantuml_graph](plantuml/lensjudge.png)
 - You can check the plantuml code in the `plantuml/lensjudge.plantuml` directory
+
+# 📝 Task distribution
+
+| Feature                                  | Author(s)                       |
+|-------------------------------------------------|---------------------------------|
+| Test case representation                  | Alexandre                       |
+| Problem representation                    | Lucas                           |
+| Problem configuration                     | Lucas                           |
+| Process representation                   | Nathan et Enzo                  |
+| Execution time limit for a process  | Nathan et Enzo                  |
+| Memory limit for a process         | Nathan et Enzo                  |
+| C program compilation                    | Alexandre                       |
+| C++ program compilation                  | Lucas                           |
+| Java program compilation                 | Enzo                            |
+| Python program compilation               | Nathan                          |
+| Execution of a compiled C program              | Lucas                           |
+| Execution of a compiled C++ program            | Lucas                           |
+| Execution of a compiled Java program           | Lucas                           |
+| Strict solution verification             | Lucas                           |
+| Verification with tolerance on real numbers       | Nathan                          |
+| Verification with tolerance on case sensitivity        | Alexandre                       |
+| Verification with tolerance on spaces     | Alexandre                       |
+| Verification with tolerance on order         | Enzo                            |
+| Verification of one solution among many     | Lucas                           |
+| Verification delegated to an external program    | None                         |
+| Execution configuration for a test case | Lucas, Nathan, Enzo et Alexandre|
+| Main program of the automatic judge          | Lucas, Nathan, Enzo et Alexandre|
+
+# IA usage justification
+
