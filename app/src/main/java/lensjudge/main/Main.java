@@ -29,8 +29,11 @@ public class Main {
 
                 System.out.println(result);
 
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 System.out.println("An error occurred: " + e.getMessage());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("The operation was interrupted: " + e.getMessage());
             }
 
         } else if (args.length == 2) {
@@ -54,8 +57,11 @@ public class Main {
                 // Si tous les tests sont corrects
                 System.out.println("\u001B[32mCORRECT\u001B[0m");
 
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 System.out.println("An error occurred: " + e.getMessage());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("The operation was interrupted: " + e.getMessage());
             }
         } else {
             System.out.println("Invalid usage. Expected 2 or 3 arguments.");

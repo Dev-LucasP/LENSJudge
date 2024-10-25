@@ -29,7 +29,7 @@ public class Runner {
     }
 
     public String run() throws IOException, InterruptedException {
-        if ((sourceFile.endsWith(".c") && sourceFile.endsWith(".cc")) && !compiler.compile()) {
+        if ((sourceFile.endsWith(".c") && sourceFile.endsWith(".cc") && sourceFile.endsWith(".java")) && !compiler.compile()) {
             return "Compilation Error";
         }
 

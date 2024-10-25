@@ -71,6 +71,12 @@ public class RunnerBuilder {
             builder.withExecutor(new ProgramExecutor(binaryFile));
         } else if (sourceFile.endsWith(".py")) {
             builder.withExecutor(new ProgramExecutor("python3 " + sourceFile));
+        } else if (sourceFile.endsWith(".java")) {
+        	JavaCompiler java = new JavaCompiler(sourceFile);
+        	java.compile();
+        	String binaryFile = java.deduceBinaryFile(sourceFile);
+            builder.withCompiler(new JavaCompiler(sourceFile));
+            builder.withExecutor(new ProgramExecutor(binaryFile));
         } else {
             throw new IllegalArgumentException("Unsupported file extension");
         }
