@@ -1,0 +1,155 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class AdapterProcess {
+  + AdapterProcess(): 
+  - process: Process
+  - processBuilder: ProcessBuilder
+  - output: String
+  - error: String
+  + createProcessus(): void
+  + execute(String[]): Process
+  + stopProcessus(): void
+   processBuilder: ProcessBuilder
+   output: String
+   process: Process
+   error: String
+}
+class CCompiler {
+  + CCompiler(String): 
+  + checkFileExtension(): boolean
+  + deduceBinaryFile(String): String
+  + compile(): boolean
+}
+class CaseAndSpaceComparison {
+  + CaseAndSpaceComparison(): 
+  + compare(ExecutionResult, ExecutionResult): boolean
+}
+class CompilerStrategy {
+  # CompilerStrategy(String): 
+  # checkFileExtension(): boolean
+  + compile(): boolean
+  # runCommand(String[]): boolean
+  # deduceBinaryFile(String): String
+}
+class CppCompiler {
+  + CppCompiler(String): 
+  + checkFileExtension(): boolean
+  + compile(): boolean
+  + deduceBinaryFile(String): String
+}
+class Decorator {
+  + Decorator(Reader): 
+  - normalizeSpaces(String): String
+  - normalizeCase(String): String
+  + readLine(): String
+}
+class ExecutionResult {
+  + ExecutionResult(int, String, String): 
+  - exitCode: int
+  - output: String
+  - errorOutput: String
+  + toString(): String
+   errorOutput: String
+   output: String
+   exitCode: int
+   success: boolean
+}
+interface IProcessStrategy << interface >> {
+  + createProcessus(): void
+  + stopProcessus(): void
+  + execute(String[]): Process
+   output: String
+   error: String
+}
+class JavaCompiler {
+  + JavaCompiler(String): 
+  + deduceBinaryFile(String): String
+  + checkFileExtension(): boolean
+  + compile(): boolean
+}
+class Main {
+  + Main(): 
+  + main(String[]): void
+}
+class MultipleSolutionsComparison {
+  + MultipleSolutionsComparison(List<String>): 
+  + compare(ExecutionResult, ExecutionResult): boolean
+}
+class OrderCheck {
+  + OrderCheck(): 
+  + compare(ExecutionResult, ExecutionResult): boolean
+}
+interface OutputComparator << interface >> {
+  + compare(ExecutionResult, ExecutionResult): boolean
+}
+class PrecisionTolerance {
+  + PrecisionTolerance(double): 
+  + compare(ExecutionResult, ExecutionResult): boolean
+}
+class Problem {
+  + Problem(List<TestCase>): 
+  - testCases: List<TestCase>
+  + iterator(): Iterator<TestCase>
+   testCases: List<TestCase>
+}
+class ProblemBuilder {
+  + ProblemBuilder(): 
+  + build(String): Problem
+}
+class ProcessTimer {
+  + ProcessTimer(AdapterProcess, long): 
+   timedOut: boolean
+}
+class ProgramExecutor {
+  + ProgramExecutor(String): 
+  + execute(): ExecutionResult
+  + executeWithInput(String): ExecutionResult
+}
+class PythonCompiler {
+  + PythonCompiler(String): 
+  + compile(): boolean
+  + deduceBinaryFile(String): String
+  # checkFileExtension(): boolean
+}
+class Runner {
+  + Runner(RunnerBuilder): 
+  + run(): String
+}
+class RunnerBuilder {
+  + RunnerBuilder(): 
+  + withSourceFile(String): RunnerBuilder
+  + withExpectedOutputFile(String): RunnerBuilder
+  + build(): Runner
+  + createRunner(String, String, String): RunnerBuilder
+  + withCompiler(CompilerStrategy): RunnerBuilder
+  + withComparator(StrictComparison): RunnerBuilder
+  + withExecutor(ProgramExecutor): RunnerBuilder
+  + withInputFile(String): RunnerBuilder
+}
+class StrictComparison {
+  + StrictComparison(): 
+  + compare(ExecutionResult, ExecutionResult): boolean
+}
+class TestCase {
+  + TestCase(String, String): 
+  - expectedOutputFile: String
+  - inputFile: String
+   expectedOutputFile: String
+   inputFile: String
+}
+
+AdapterProcess               -[#008200,dashed]-^  IProcessStrategy            
+CCompiler                    -[#000082,plain]-^  CompilerStrategy            
+CaseAndSpaceComparison       -[#008200,dashed]-^  OutputComparator            
+CppCompiler                  -[#000082,plain]-^  CompilerStrategy            
+JavaCompiler                 -[#000082,plain]-^  CompilerStrategy            
+MultipleSolutionsComparison  -[#008200,dashed]-^  OutputComparator            
+OrderCheck                   -[#008200,dashed]-^  OutputComparator            
+PrecisionTolerance           -[#008200,dashed]-^  OutputComparator            
+PythonCompiler               -[#000082,plain]-^  CompilerStrategy            
+StrictComparison             -[#008200,dashed]-^  OutputComparator            
+@enduml

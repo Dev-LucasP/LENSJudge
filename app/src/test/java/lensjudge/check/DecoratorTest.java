@@ -5,10 +5,10 @@ import java.io.StringReader;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DecoratorTest {
+class DecoratorTest {
 
     @Test
-    public void testReadLine() throws IOException {
+    void testReadLine() throws IOException {
         String input = "Hello   World\nThis is a TEST";
         String expectedOutput1 = "hello world";
         String expectedOutput2 = "this is a test";
