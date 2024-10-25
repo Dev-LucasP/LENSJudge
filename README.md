@@ -41,3 +41,4 @@ $ lensjudge main.cc test-dir
 
 # 📊 Diagrams of the project
 ![plantuml_graph](plantuml/lensjudge.png)
+- You can check the plantuml code in the `plantuml/lensjudge.plantuml` directory
