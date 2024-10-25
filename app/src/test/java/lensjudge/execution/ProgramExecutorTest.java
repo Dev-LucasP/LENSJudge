@@ -91,7 +91,7 @@ class ProgramExecutorTest {
     }
     
     @Test
-    void testPythonScriptExecution() throws IOException {
+    void testPythonScriptExecution() throws IOException, InterruptedException {
         // Créer un fichier source Python
         String pythonScriptFile = createSourceFile("hello.py", 
             "print('Hello from Python!')");

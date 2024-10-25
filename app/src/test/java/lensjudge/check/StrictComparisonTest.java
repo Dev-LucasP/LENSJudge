@@ -16,7 +16,7 @@ class StrictComparisonTest {
     private String tempDir;
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, InterruptedException {
         // Create a temporary directory for test files
         tempDir = System.getProperty("java.io.tmpdir") + "/execution_tests/";
         new File(tempDir).mkdirs();
@@ -41,7 +41,7 @@ class StrictComparisonTest {
     }
 
     @Test
-    void testPrecisionStrict() throws IOException {
+    void testPrecisionStrict() throws IOException, InterruptedException {
         // Créer des fichiers source Python différents
         String pythonScriptFile1 = createSourceFile("hello1.py", "print('Hello from Python!')");
         String pythonScriptFile2 = createSourceFile("hello2.py", "print('Hello from Python!')");
@@ -63,7 +63,7 @@ class StrictComparisonTest {
     }
     
     @Test
-    void testPrecisionStrictFailure() throws IOException {
+    void testPrecisionStrictFailure() throws IOException, InterruptedException {
         // Créer des fichiers source Python différents
         String pythonScriptFile1 = createSourceFile("hello1.py", "print('Hello fro Python!')");
         String pythonScriptFile2 = createSourceFile("hello2.py", "print('Hello from Python!')");

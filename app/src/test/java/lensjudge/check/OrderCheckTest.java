@@ -30,7 +30,7 @@ class OrderCheckTest {
     }
 
     @Test
-    void testWrongPythonScriptExecution() throws IOException {
+    void testWrongPythonScriptExecution() throws IOException, InterruptedException {
         String pythonScriptFile1 = createSourceFile("hello.py",
                 "print('1 2 3')");
 
@@ -52,7 +52,7 @@ class OrderCheckTest {
     }
 
     @Test
-    void testRightPythonScriptExecution() throws IOException {
+    void testRightPythonScriptExecution() throws IOException, InterruptedException {
         String pythonScriptFile1 = createSourceFile("hello.py",
                 "print('1 2 3 4')");
 

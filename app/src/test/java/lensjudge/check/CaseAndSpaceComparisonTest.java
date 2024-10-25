@@ -41,7 +41,7 @@ class CaseAndSpaceComparisonTest {
     }
     
     @Test
-    void testCaseAndSpaceInsensitive() throws IOException {
+    void testCaseAndSpaceInsensitive() throws IOException, InterruptedException {
         // Créer des fichiers Python
         String pythonScriptFile1 = createSourceFile("hello1.py", "print('  HeLLo from    Python!  ')");
         String pythonScriptFile2 = createSourceFile("hello2.py", "print('hello   from python!')");
@@ -62,7 +62,7 @@ class CaseAndSpaceComparisonTest {
     }
     
     @Test
-    void testCaseAndSpaceInsensitiveFailure() throws IOException {
+    void testCaseAndSpaceInsensitiveFailure() throws IOException, InterruptedException {
         // Créer des fichiers Python
         String pythonScriptFile1 = createSourceFile("hello1.py", "print('  HeLao from    Python!  ')");
         String pythonScriptFile2 = createSourceFile("hello2.py", "print('hello   from python!')");

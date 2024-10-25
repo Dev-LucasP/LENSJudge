@@ -43,7 +43,7 @@ class MultipleSolutionsComparisonTest {
     }
     
     @Test
-    void testMultipleSolutionsComparison() throws IOException {
+    void testMultipleSolutionsComparison() throws IOException, InterruptedException {
         // Créer un fichier source Python
         String pythonScriptFile = createSourceFile("solution.py", "print('Solution B')");
 
@@ -63,7 +63,7 @@ class MultipleSolutionsComparisonTest {
     }
     
     @Test
-    void testMultipleSolutionsComparisonFailure() throws IOException {
+    void testMultipleSolutionsComparisonFailure() throws IOException, InterruptedException {
         // Créer un fichier source Python
         String pythonScriptFile = createSourceFile("solution.py", "print('Solution L')");
 

@@ -34,7 +34,7 @@ class ToleranceTest {
     
   
     @Test
-    void testPrecisionTolerance() throws IOException {
+    void testPrecisionTolerance() throws IOException, InterruptedException {
         // Créer un fichier source Python
         String pythonScriptFile1 = createSourceFile("calc1.py", "print(3.14159)");
         String pythonScriptFile2 = createSourceFile("calc2.py", "print(3.14160)");
@@ -55,7 +55,7 @@ class ToleranceTest {
     }
     
     @Test
-    void testPrecisionToleranceFailure() throws IOException {
+    void testPrecisionToleranceFailure() throws IOException, InterruptedException {
         // Créer des fichiers source Python différents
         String pythonScriptFile1 = createSourceFile("calc1.py", "print(4.14159)");
         String pythonScriptFile2 = createSourceFile("calc2.py", "print(3.14159)");
