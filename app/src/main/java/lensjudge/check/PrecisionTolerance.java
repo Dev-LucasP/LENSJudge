@@ -45,10 +45,10 @@ public class PrecisionTolerance implements OutputComparator {
                 double expectedValue = Double.parseDouble(expectedLines[i]);
 
                 if (Math.abs(programValue - expectedValue) > tolerance) {
-                    return false; // Différence trop importante
+                    return false;
                 }
             } catch (NumberFormatException e) {
-                return false; // Ce n'est pas un nombre
+                return false;
             }
         }
 
